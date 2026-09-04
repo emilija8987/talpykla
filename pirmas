@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+using std::string;
+using std::vector;
+
+struct studentas {
+    string vardas, pavarde;
+    vector<int> paz;
+    int egz;
+};
+
+void printas(studentas A);
+
+int main()
+{
+    int k;    
+    std::vector<studentas> grupe;
+    std::cout<<"kiek studentu sarase? : ";
+    int n;
+    std::cin>>n;
+    for( int j=0; j<n; j++)
+    {
+        studentas A;
+        std::cout<<"iveskite per tarpa studento varda ir pavarde:  ";
+        std::cin>>A.vardas>>A.pavarde;
+        std::cout<<"iveskite pazymiu kieki: ";
+        std::cin>>k;
+        for (int i=0; i<k; i++)
+        {
+            std::cout<<"iveskite "<<i+1<<"pazimi: ";
+            //cin>>A.paz[i];
+            int a;
+            std::cin>>a;
+            A.paz.push_back(a);
+        }
+        std::cout<<"iveskite egzamino rezultata: ";
+        std::cin>>A.egz;
+        
+        grupe.push_back(A);
+        A.vardas.clear();
+        A.pavarde.clear();
+        A.paz.clear();
+    }
+    
+    std::cout<<"studento duom: \n";
+    for(studentas &B.grupe) printas(B);
+    //std::cout<<std::left<<std::setw(10)<<A.vardas<<"|"<<std::left<<std::setw(10)<<A.pavarde<<"|";
+    //for (int p: A.paz) std::cout<<std::right<<std::setw(3)<<p<<"|";
+    //std::cout<<std::right<<std::setw(5)<<A.egz<<"|\n";
+}
+    
+    void printas(studentas &A)
+    {
+        std::cout<<std::left<<std::setw(10)<<A.vardas<<"|"<<std::left<<std::setw(10)<<A.pavarde<<"|";
+        for (int p: A.paz) std::cout<<std::right<<std::setw(3)<<p<<"|";
+        std::cout<<std::right<<std::setw(5)<<A.egz<<"|\n";
+    }
+a
