@@ -13,8 +13,11 @@
 	<string>
 	<vector>
 
-1790877900 source:c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\vo.2\studentai\v0.2main.cpp
+1790881758 source:c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\vo.2\studentai\v0.2main.cpp
 	<iostream>
+	<vector>
+	<string>
+	<chrono>
 	<algorithm>
 	"v0.2studentas.h"
 	"v0.2pagalbine.h"
@@ -24,7 +27,7 @@
 	<vector>
 	<fstream>
 
-1790879395 source:c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\vo.2\studentai\v0.2studentas.cpp
+1790881910 source:c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\vo.2\studentai\v0.2studentas.cpp
 	<iostream>
 	<iomanip>
 	<sstream>

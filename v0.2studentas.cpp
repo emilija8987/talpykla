@@ -52,7 +52,7 @@ void generuotiStudentuFaila(const string &failoPavadinimas, int kiekis, int nd_k
     }
 
     f.close();
-    std::cout<<"Atlikta\n";
+    std::cout<<"Atlikta\n\n";
 }
 
 bool skaitytiFaila(std::vector<studentas> &grupe, const string &failas, int kiekis)
