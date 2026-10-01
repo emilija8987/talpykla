@@ -28,6 +28,7 @@ int atspazymiai(int maz = 1, int did = 10);
 bool skaitytiFaila(std::vector<studentas> &grupe, const string &failas, int kiekis = 0);
 bool failasEgzistuoja(const string &pavadinimas);
 void generuotiStudentuFaila(const string &failoPavadinimas, int kiekis, int nd_kiek = 5);
+void irasytiIFaila(const string &failoPavadinimas, const vector<studentas> &s_grupe);
 
 
 int main()
@@ -146,19 +147,24 @@ int main()
 
     std::sort(grupe.begin(), grupe.end());
 
-    std::ofstream R("rezultatai.txt");
-    R << std::left << std::setw(15) << "Pavarde"
-      << std::left << std::setw(15) << "Vardas"
-      << std::left << std::setw(18) << "Galutinis (vid.)"
-      << std::left << std::setw(18) << "Galutinis (med.)\n";
-    R << "-------------------------------------------------------------------\n";
+    vector<studentas> vargsiukai;
+    vector<studentas> kietiakiai;
 
-    for (const auto &x : grupe) printas(x, R);
+    for (const auto &s : grupe)
+    {
+        if (s.galutinis_vid < 5.0)
+        {
+            vargsiukai.push_back(s);
+        } else
+        {
+            kietiakiai.push_back(s);
+        }
+    }
 
-    R.close();
-    std::cout << "Rezultatai sekmingai irasyti i faila 'rezultatai.txt'.\n";
+    irasytiIFaila("vargsiukai.txt", vargsiukai);
+    irasytiIFaila("kietiakiai.txt", kietiakiai);
 
-    return 0;
+    std::cout << "Duomenys irasyti i 'vargsiukai.txt' ir 'kietiakiai.txt'.\n";
 }
 
 bool failasEgzistuoja(const string &pavadinimas)
@@ -232,7 +238,7 @@ bool skaitytiFaila(std::vector<studentas> &grupe, const string &failas, int kiek
     {
         if (eilute.empty()) continue;
 
-        std::stringstream ss;
+        std::stringstream ss(eilute);
 
         studentas laik;
 
@@ -317,4 +323,24 @@ void printas(const studentas &laik, std::ofstream &R)
      <<std::left<<std::setw(15)<<laik.vardas
      <<std::left<<std::setw(18)<<std::fixed<<std::setprecision(2)<<laik.galutinis_vid
      <<std::left<<std::setw(18)<<std::fixed<<std::setprecision(2)<<laik.galutinis_med<<"\n";
+}
+
+void irasytiIFaila(const string &failoPavadinimas, const vector<studentas> &s_grupe)
+{
+    std::ofstream R(failoPavadinimas);
+    if (!R.is_open())
+    {
+        std::cout << "Klaida: nepavyko sukurti failo " << failoPavadinimas << "\n";
+        return;
+    }
+
+    R << std::left << std::setw(15) << "Pavarde"
+      << std::left << std::setw(15) << "Vardas"
+      << std::left << std::setw(18) << "Galutinis (vid.)"
+      << std::left << std::setw(18) << "Galutinis (med.)\n";
+    R << "-------------------------------------------------------------------\n";
+
+    for (const auto &x : s_grupe) printas(x, R);
+
+    R.close();
 }
