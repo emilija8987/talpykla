@@ -1,6 +1,5 @@
-<<<<<<< HEAD
-#ifndef V02_STUDENTAS_H
-#define V02_STUDENTAS_H
+#ifndef V03_STUDENTAS_H
+#define V03_STUDENTAS_H
 
 #include <string>
 #include <vector>
@@ -23,6 +22,36 @@ struct studentas {
 
 void printas(const studentas &laik, std::ofstream &R);
 void generuotiStudentuFaila(const std::string &failoPavadinimas, int kiekis, int nd_kiek = 5);
+
+inline bool palygintiPagalVarda(const studentas &a, const studentas &b) {
+    if (a.vardas != b.vardas) return a.vardas < b.vardas;
+    return a.pavarde < b.pavarde;
+}
+
+inline bool palygintiPagalPavarde(const studentas &a, const studentas &b) {
+    if (a.pavarde != b.pavarde) return a.pavarde < b.pavarde;
+    return a.vardas < b.vardas;
+}
+
+inline bool palygintiPagalVidurki(const studentas &a, const studentas &b) {
+    if (a.galutinis_vid != b.galutinis_vid) {
+        return a.galutinis_vid > b.galutinis_vid;
+    }
+    if (a.galutinis_med != b.galutinis_med) {
+        return a.galutinis_med > b.galutinis_med;
+    }
+    return a.pavarde < b.pavarde;
+}
+
+inline bool palygintiPagalMediana(const studentas &a, const studentas &b) {
+    if (a.galutinis_med != b.galutinis_med) {
+        return a.galutinis_med > b.galutinis_med;
+    }
+    if (a.galutinis_vid != b.galutinis_vid) {
+        return a.galutinis_vid > b.galutinis_vid;
+    }
+    return a.pavarde < b.pavarde;
+}
 
 template <typename C>
 typename std::enable_if<std::is_same<C, std::vector<studentas>>::value>::type
@@ -97,80 +126,20 @@ template <typename Container>
 typename std::enable_if<std::is_same<Container, std::vector<studentas>>::value>::type
 rusiuotiStudentus(Container &grupe, int kriterijus)
 {
-    auto comp1 = [](const studentas &a, const studentas &b) {
-        if (a.vardas != b.vardas) return a.vardas < b.vardas;
-        return a.pavarde < b.pavarde;
-    };
-
-    auto comp2 = [](const studentas &a, const studentas &b) {
-        if (a.pavarde != b.pavarde) return a.pavarde < b.pavarde;
-        return a.vardas < b.vardas;
-    };
-
-    auto comp3 = [](const studentas &a, const studentas &b) {
-        if (a.galutinis_vid != b.galutinis_vid) {
-            return a.galutinis_vid > b.galutinis_vid;
-        }
-        if (a.galutinis_med != b.galutinis_med) {
-            return a.galutinis_med > b.galutinis_med;
-        }
-        return a.pavarde < b.pavarde;
-    };
-
-    auto comp4 = [](const studentas &a, const studentas &b) {
-        if (a.galutinis_med != b.galutinis_med) {
-            return a.galutinis_med > b.galutinis_med;
-        }
-        if (a.galutinis_vid != b.galutinis_vid) {
-            return a.galutinis_vid > b.galutinis_vid;
-        }
-        return a.pavarde < b.pavarde;
-    };
-
-    if (kriterijus == 1) std::sort(grupe.begin(), grupe.end(), comp1);
-    else if (kriterijus == 2) std::sort(grupe.begin(), grupe.end(), comp2);
-    else if (kriterijus == 3) std::sort(grupe.begin(), grupe.end(), comp3);
-    else if (kriterijus == 4) std::sort(grupe.begin(), grupe.end(), comp4);
+    if (kriterijus == 1) std::sort(grupe.begin(), grupe.end(), palygintiPagalVarda);
+    else if (kriterijus == 2) std::sort(grupe.begin(), grupe.end(), palygintiPagalPavarde);
+    else if (kriterijus == 3) std::sort(grupe.begin(), grupe.end(), palygintiPagalVidurki);
+    else if (kriterijus == 4) std::sort(grupe.begin(), grupe.end(), palygintiPagalMediana);
 }
 
 template <typename Container>
 typename std::enable_if<!std::is_same<Container, std::vector<studentas>>::value>::type
 rusiuotiStudentus(Container &grupe, int kriterijus)
 {
-    auto comp1 = [](const studentas &a, const studentas &b) {
-        if (a.vardas != b.vardas) return a.vardas < b.vardas;
-        return a.pavarde < b.pavarde;
-    };
-
-    auto comp2 = [](const studentas &a, const studentas &b) {
-        if (a.pavarde != b.pavarde) return a.pavarde < b.pavarde;
-        return a.vardas < b.vardas;
-    };
-
-    auto comp3 = [](const studentas &a, const studentas &b) {
-        if (a.galutinis_vid != b.galutinis_vid) {
-            return a.galutinis_vid > b.galutinis_vid;
-        }
-        if (a.galutinis_med != b.galutinis_med) {
-            return a.galutinis_med > b.galutinis_med;
-        }
-        return a.pavarde < b.pavarde;
-    };
-
-    auto comp4 = [](const studentas &a, const studentas &b) {
-        if (a.galutinis_med != b.galutinis_med) {
-            return a.galutinis_med > b.galutinis_med;
-        }
-        if (a.galutinis_vid != b.galutinis_vid) {
-            return a.galutinis_vid > b.galutinis_vid;
-        }
-        return a.pavarde < b.pavarde;
-    };
-
-    if (kriterijus == 1) grupe.sort(comp1);
-    else if (kriterijus == 2) grupe.sort(comp2);
-    else if (kriterijus == 3) grupe.sort(comp3);
-    else if (kriterijus == 4) grupe.sort(comp4);
+    if (kriterijus == 1) grupe.sort(palygintiPagalVarda);
+    else if (kriterijus == 2) grupe.sort(palygintiPagalPavarde);
+    else if (kriterijus == 3) grupe.sort(palygintiPagalVidurki);
+    else if (kriterijus == 4) grupe.sort(palygintiPagalMediana);
 }
 
 template <typename Container>
@@ -208,40 +177,3 @@ void irasytiIFaila(const std::string &failoPavadinimas, const Container &s_grupe
 
 
 
-=======
-#ifndef V02_STUDENTAS_H
-#define V02_STUDENTAS_H
-
-#include <string>
-#include <vector>
-#include <fstream>
-
-struct studentas {
-    std::string vardas, pavarde;
-    std::vector<int> nd;
-    int egz;
-    double galutinis_vid;
-    double galutinis_med;
-};
-
-void printas(const studentas &laik, std::ofstream &R);
-bool skaitytiFaila(std::vector<studentas> &grupe, const std::string &failas, int kiekis = 0);
-void generuotiStudentuFaila(const std::string &failoPavadinimas, int kiekis, int nd_kiek = 5);
-void irasytiIFaila(const std::string &failoPavadinimas, const std::vector<studentas> &s_grupe);
-void rusiuotiStudentus(std::vector<studentas> &grupe, int kriterijus);
-
-#endif
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> e926e8690abd4f1a0ffb0a946b8e69ff116fd42a
