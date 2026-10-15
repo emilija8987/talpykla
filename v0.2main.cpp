@@ -11,53 +11,82 @@ using std::vector;
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double>;
 
-void atliktiAnalize(const string &failo_pavadinimas, int kiekis)
+int gautiRusiavimoKriteriju()
+{
+    std::cout << "\nPasirinkite rusiavimo kriteriju:\n";
+    std::cout << "1 - Pagal varda\n";
+    std::cout << "2 - Pagal pavarde\n";
+    std::cout << "3 - Pagal galutini vidurki\n";
+    std::cout << "4 - Pagal galutine mediana\n";
+    return ivestiSkaiciu("Jusu pasirinkimas (1-4): ", 1, 4);
+}
+
+void atliktiAnalize(const string &failo_pavadinimas, int kiekis, int rusiavimo_kriterijus)
 {
     std::cout << "------------------------------------------------------------------------\n";
     std::cout << "Pradedama analize failui: " << failo_pavadinimas << " (" << kiekis << " irasu)\n";
     std::cout << "------------------------------------------------------------------------\n";
 
-    generuotiStudentuFaila(failo_pavadinimas, kiekis);
-
-    vector<studentas> grupe;
-    auto t1 = Clock::now();
-    skaitytiFaila(grupe, failo_pavadinimas, kiekis);
-    auto t2 = Clock::now();
-    double t_skaitymas = Duration(t2 - t1).count();
-    std::cout << "1. Duomenu nuskaitymas: " << t_skaitymas << " s\n";
-
-
-    auto t3 = Clock::now();
-    std::sort(grupe.begin(), grupe.end());
-
-    vector<studentas> vargsiukai;
-    vector<studentas> kietiakiai;
-
-    for (const auto &s : grupe)
+    if (!failasEgzistuoja(failo_pavadinimas))
     {
-        if (s.galutinis_vid < 5.0)
-        {
-            vargsiukai.push_back(s);
-        }
-        else
-        {
-            kietiakiai.push_back(s);
-        }
+        generuotiStudentuFaila(failo_pavadinimas, kiekis);
     }
-    auto t4 = Clock::now();
-    double t_rusiavimas = Duration(t4 - t3).count();
-    std::cout << "2. Studentu rusiavimas ir dalijimas: " << t_rusiavimas << " s\n";
+    else
+    {
+        std::cout << "Failas '" << failo_pavadinimas << "' jau egzistuoja. Generavimas praleidziamas.\n";
+    }
 
+    int testu_kiekis = 3;
+    double suma_skaitymas = 0;
+    double suma_rusiavimas = 0;
+    double suma_isvedimas = 0;
+    double suma_bendras = 0;
 
-    auto t5 = Clock::now();
-    irasytiIFaila("vargsiukai.txt", vargsiukai);
-    irasytiIFaila("kietiakiai.txt", kietiakiai);
-    auto t6 = Clock::now();
-    double t_isvedimas = Duration(t6 - t5).count();
-    std::cout << "3. Isvedimas i du failus: " << t_isvedimas << " s\n";
+    for (int i = 0; i < testu_kiekis; i++)
+    {
+        vector<studentas> grupe;
 
-    double t_bendras = t_skaitymas + t_rusiavimas + t_isvedimas;
-    std::cout << "-> Bendras laikas: " << t_bendras << " s\n\n";
+        auto t1 = Clock::now();
+        skaitytiFaila(grupe, failo_pavadinimas, kiekis);
+        auto t2 = Clock::now();
+        double t_skaitymas = Duration(t2 - t1).count();
+
+        auto t3 = Clock::now();
+        rusiuotiStudentus(grupe, rusiavimo_kriterijus);
+
+        vector<studentas> vargsiukai;
+        vector<studentas> kietiakiai;
+
+        for (const auto &s : grupe)
+        {
+            if (s.galutinis_vid < 5.0)
+            {
+                vargsiukai.push_back(s);
+            }
+            else
+            {
+                kietiakiai.push_back(s);
+            }
+        }
+        auto t4 = Clock::now();
+        double t_rusiavimas = Duration(t4 - t3).count();
+
+        auto t5 = Clock::now();
+        irasytiIFaila("vargsiukai.txt", vargsiukai);
+        irasytiIFaila("kietiakiai.txt", kietiakiai);
+        auto t6 = Clock::now();
+        double t_isvedimas = Duration(t6 - t5).count();
+
+        suma_skaitymas += t_skaitymas;
+        suma_rusiavimas += t_rusiavimas;
+        suma_isvedimas += t_isvedimas;
+        suma_bendras += (t_skaitymas + t_rusiavimas + t_isvedimas);
+    }
+
+    std::cout << "1. Duomenu nuskaitymas (vidurkis): " << suma_skaitymas / testu_kiekis << " s\n";
+    std::cout << "2. Studentu rusiavimas ir dalijimas (vidurkis): " << suma_rusiavimas / testu_kiekis << " s\n";
+    std::cout << "3. Isvedimas i du failus (vidurkis): " << suma_isvedimas / testu_kiekis << " s\n";
+    std::cout << "-> Bendras laikas (vidurkis): " << suma_bendras / testu_kiekis << " s\n\n";
 }
 
 int main()
@@ -69,6 +98,8 @@ int main()
 
     if (rezimas == 1)
     {
+        int rusiavimo_kriterijus = gautiRusiavimoKriteriju();
+
         struct TestData
         {
             string failas;
@@ -86,7 +117,7 @@ int main()
 
         for (const auto &t : testai)
         {
-            atliktiAnalize(t.failas, t.kiekis);
+            atliktiAnalize(t.failas, t.kiekis, rusiavimo_kriterijus);
         }
     }
     else
@@ -199,7 +230,9 @@ int main()
 
         if (!grupe.empty())
         {
-            std::sort(grupe.begin(), grupe.end());
+            int rusiavimo_kriterijus = gautiRusiavimoKriteriju();
+
+            rusiuotiStudentus(grupe, rusiavimo_kriterijus);
 
             vector<studentas> vargsiukai;
             vector<studentas> kietiakiai;

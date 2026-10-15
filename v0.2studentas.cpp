@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <sstream>
 #include <random>
+#include <algorithm>
 #include "v0.2studentas.h"
 #include "v0.2pagalbine.h"
 
@@ -113,10 +114,52 @@ bool skaitytiFaila(std::vector<studentas> &grupe, const string &failas, int kiek
     return true;
 }
 
+void rusiuotiStudentus(std::vector<studentas> &grupe, int kriterijus)
+{
+    if (kriterijus == 1)
+    {
+        std::sort(grupe.begin(), grupe.end(), [](const studentas &a, const studentas &b) {
+            if (a.vardas != b.vardas) return a.vardas < b.vardas;
+            return a.pavarde < b.pavarde;
+        });
+    }
+    else if (kriterijus == 2)
+    {
+        std::sort(grupe.begin(), grupe.end(), [](const studentas &a, const studentas &b) {
+            if (a.pavarde != b.pavarde) return a.pavarde < b.pavarde;
+            return a.vardas < b.vardas;
+        });
+    }
+    else if (kriterijus == 3)
+    {
+        std::sort(grupe.begin(), grupe.end(), [](const studentas &a, const studentas &b) {
+            if (a.galutinis_vid != b.galutinis_vid) {
+                return a.galutinis_vid > b.galutinis_vid;
+            }
+            if (a.galutinis_med != b.galutinis_med) {
+                return a.galutinis_med > b.galutinis_med;
+            }
+            return a.pavarde < b.pavarde;
+        });
+    }
+    else if (kriterijus == 4)
+    {
+        std::sort(grupe.begin(), grupe.end(), [](const studentas &a, const studentas &b) {
+            if (a.galutinis_med != b.galutinis_med) {
+                return a.galutinis_med > b.galutinis_med;
+            }
+            if (a.galutinis_vid != b.galutinis_vid) {
+                return a.galutinis_vid > b.galutinis_vid;
+            }
+            return a.pavarde < b.pavarde;
+        });
+    }
+}
+
 void printas(const studentas &laik, std::ofstream &R)
 {
-    R<<std::left<<std::setw(15)<<laik.pavarde
-     <<std::left<<std::setw(15)<<laik.vardas
+    R<<std::left<<std::setw(15)<<laik.vardas
+     <<std::left<<std::setw(15)<<laik.pavarde
      <<std::left<<std::setw(18)<<std::fixed<<std::setprecision(2)<<laik.galutinis_vid
      <<std::left<<std::setw(18)<<std::fixed<<std::setprecision(2)<<laik.galutinis_med<<"\n";
 }
@@ -130,8 +173,8 @@ void irasytiIFaila(const string &failoPavadinimas, const vector<studentas> &s_gr
         return;
     }
 
-    R << std::left << std::setw(15) << "Pavarde"
-      << std::left << std::setw(15) << "Vardas"
+    R << std::left << std::setw(15) << "Vardas"
+      << std::left << std::setw(15) << "Pavarde"
       << std::left << std::setw(18) << "Galutinis (vid.)"
       << std::left << std::setw(18) << "Galutinis (med.)\n";
     R << "-------------------------------------------------------------------\n";

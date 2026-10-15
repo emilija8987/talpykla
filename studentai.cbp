@@ -32,7 +32,11 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="main.cpp" />
+		<Unit filename="v0.2 pagalbine.cpp" />
+		<Unit filename="v0.2main.cpp" />
+		<Unit filename="v0.2pagalbine.h" />
+		<Unit filename="v0.2studentas.cpp" />
+		<Unit filename="v0.2studentas.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
