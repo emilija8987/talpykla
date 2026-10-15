@@ -3,7 +3,7 @@
 Šioje programos versijoje atliktas spartos tyrimas ir palyginimas, kaip keičiasi programos veikimo laikas naudojant skirtingus standartinės bibliotekos konteinerius: **std::vector** ir **std::list**.
 
 ## 1. Testavimo sistemos parametrai
-* **Operacinė sistema (OS):** Windows 10 / 11
+* **Operacinė sistema (OS):** Windows 10
 * **CPU (Procesorius):** Intel(R) Core(TM) i3-7020U CPU @ 2.30GHz
 * **RAM (Atmintis):** 4 GB
 * **Diskas:** SSD
