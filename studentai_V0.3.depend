@@ -61,7 +61,7 @@
 	"v0.3studentas.h"
 	"v0.3pagalbine.h"
 
-1792073483 c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\v1.o\v0.3studentas.h
+1793131010 c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\v1.o\v0.3studentas.h
 	<string>
 	<vector>
 	<fstream>
@@ -71,5 +71,15 @@
 	<iomanip>
 	<type_traits>
 	<algorithm>
+	"v0.3pagalbine.h"
+
+1793131061 source:c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\v1.o\v0.3main.cpp
+	<iostream>
+	<vector>
+	<string>
+	<chrono>
+	<algorithm>
+	<list>
+	"v0.3studentas.h"
 	"v0.3pagalbine.h"
 

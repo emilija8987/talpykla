@@ -24,10 +24,10 @@ int gautiRusiavimoKriteriju()
 }
 
 template <typename Container>
-void atliktiAnalize(const string &failo_pavadinimas, int kiekis, int rusiavimo_kriterijus, string konteinerio_pavadinimas)
+void atliktiAnalize(int strategijos_nr, const string &failo_pavadinimas, int kiekis, int rusiavimo_kriterijus, string konteinerio_pavadinimas)
 {
     std::cout << "------------------------------------------------------------------------\n";
-    std::cout << "Konteineris: " << konteinerio_pavadinimas << " | Failas: " << failo_pavadinimas << " (" << kiekis << " irasu)\n";
+    std::cout << strategijos_nr << " STRATEGIJA | Konteineris: " << konteinerio_pavadinimas << " | Failas: " << failo_pavadinimas << " (" << kiekis << " irasu)\n";
     std::cout << "------------------------------------------------------------------------\n";
 
     if (!failasEgzistuoja(failo_pavadinimas))
@@ -58,23 +58,14 @@ void atliktiAnalize(const string &failo_pavadinimas, int kiekis, int rusiavimo_k
         auto t3 = Clock::now();
         rusiuotiStudentus(grupe, rusiavimo_kriterijus);
         auto t4 = Clock::now();
-
         double t_rusiavimas = Duration(t4 - t3).count();
 
         Container vargsiukai;
         Container kietiakiai;
 
         auto t5 = Clock::now();
-        for (const auto &s : grupe)
-        {
-            if (s.galutinis_vid < 5.0)
-            {
-                vargsiukai.push_back(s);
-            }
-            else
-            {
-                kietiakiai.push_back(s);
-            }
+        if (strategijos_nr == 1) {
+            dalinti1Strategija(grupe, vargsiukai, kietiakiai);
         }
         auto t6 = Clock::now();
         double t_dalijimas = Duration(t6 - t5).count();
@@ -95,7 +86,7 @@ void atliktiAnalize(const string &failo_pavadinimas, int kiekis, int rusiavimo_k
     std::cout << "1. Duomenu nuskaitymas (vidurkis): " << suma_skaitymas / testu_kiekis << " s\n";
     std::cout << "2. Studentu rusiavimas ir dalijimas (vidurkis): " << suma_rusiavimas / testu_kiekis << " s\n";
     std::cout << "3. Studentu dalijimas (vidurkis): "<< suma_dalijimas / testu_kiekis << " s\n";
-    std::cout << "3. Isvedimas i du failus (vidurkis): " << suma_isvedimas / testu_kiekis << " s\n";
+    std::cout << "4. Isvedimas i du failus (vidurkis): " << suma_isvedimas / testu_kiekis << " s\n";
     std::cout << "-> Bendras laikas (vidurkis): " << suma_bendras / testu_kiekis << " s\n\n";
 }
 
@@ -214,13 +205,14 @@ int main()
         std::cout << "\n=================== VYKDOMI TESTAI SU std::vector ===================\n\n";
         for (const auto &t : testai)
         {
-            atliktiAnalize<std::vector<studentas>>(t.failas, t.kiekis, rusiavimo_kriterijus, "std::vector");
+            atliktiAnalize<std::vector<studentas>>(1, t.failas, t.kiekis, rusiavimo_kriterijus, "std::vector");
         }
 
         std::cout << "\n=================== VYKDOMI TESTAI SU std::list ===================\n\n";
+        std::cout << "\n--- 1 STRATEGIJA (List) ---\n";
         for (const auto &t : testai)
         {
-            atliktiAnalize<std::list<studentas>>(t.failas, t.kiekis, rusiavimo_kriterijus, "std::list");
+            atliktiAnalize<std::list<studentas>>(1, t.failas, t.kiekis, rusiavimo_kriterijus, "std::list");
         }
     }
     else

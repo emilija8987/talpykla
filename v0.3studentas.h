@@ -163,6 +163,24 @@ void irasytiIFaila(const std::string &failoPavadinimas, const Container &s_grupe
     R.close();
 }
 
+template <typename Container>
+void dalinti1Strategija(const Container &grupe, Container &vargsiukai, Container &kietiakiai)
+{
+    vargsiukai.clear();
+    kietiakiai.clear();
+
+    for (const auto &s : grupe)
+    {
+        if (s.galutinis_vid < 5.0)
+        {
+            vargsiukai.push_back(s);
+        }
+        else
+        {
+            kietiakiai.push_back(s);
+        }
+    }
+}
 #endif
 
 
