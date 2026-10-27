@@ -1,0 +1,43 @@
+# depslib dependency file v1.0
+1792071720 source:c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\vo.3\v0.3pagalbine.cpp
+	"v0.3pagalbine.h"
+	<iostream>
+	<algorithm>
+	<random>
+	<fstream>
+
+1792071428 c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\vo.3\v0.3pagalbine.h
+	<string>
+	<vector>
+
+1792079575 source:c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\vo.3\v0.3main.cpp
+	<iostream>
+	<vector>
+	<string>
+	<chrono>
+	<algorithm>
+	<list>
+	"v0.3studentas.h"
+	"v0.3pagalbine.h"
+
+1792073483 c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\vo.3\v0.3studentas.h
+	<string>
+	<vector>
+	<fstream>
+	<list>
+	<iostream>
+	<sstream>
+	<iomanip>
+	<type_traits>
+	<algorithm>
+	"v0.3pagalbine.h"
+
+1792074662 source:c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\vo.3\v0.3studentas.cpp
+	<iostream>
+	<iomanip>
+	<sstream>
+	<random>
+	<algorithm>
+	"v0.3studentas.h"
+	"v0.3pagalbine.h"
+
