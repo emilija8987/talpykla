@@ -42,6 +42,7 @@ void atliktiAnalize(const string &failo_pavadinimas, int kiekis, int rusiavimo_k
     int testu_kiekis = 3;
     double suma_skaitymas = 0;
     double suma_rusiavimas = 0;
+    double suma_dalijimas = 0;
     double suma_isvedimas = 0;
     double suma_bendras = 0;
 
@@ -56,10 +57,14 @@ void atliktiAnalize(const string &failo_pavadinimas, int kiekis, int rusiavimo_k
 
         auto t3 = Clock::now();
         rusiuotiStudentus(grupe, rusiavimo_kriterijus);
+        auto t4 = Clock::now();
+
+        double t_rusiavimas = Duration(t4 - t3).count();
 
         Container vargsiukai;
         Container kietiakiai;
 
+        auto t5 = Clock::now();
         for (const auto &s : grupe)
         {
             if (s.galutinis_vid < 5.0)
@@ -71,23 +76,25 @@ void atliktiAnalize(const string &failo_pavadinimas, int kiekis, int rusiavimo_k
                 kietiakiai.push_back(s);
             }
         }
-        auto t4 = Clock::now();
-        double t_rusiavimas = Duration(t4 - t3).count();
+        auto t6 = Clock::now();
+        double t_dalijimas = Duration(t6 - t5).count();
 
-        auto t5 = Clock::now();
+        auto t7 = Clock::now();
         irasytiIFaila("vargsiukai.txt", vargsiukai);
         irasytiIFaila("kietiakiai.txt", kietiakiai);
-        auto t6 = Clock::now();
-        double t_isvedimas = Duration(t6 - t5).count();
+        auto t8 = Clock::now();
+        double t_isvedimas = Duration(t8 - t7).count();
 
         suma_skaitymas += t_skaitymas;
         suma_rusiavimas += t_rusiavimas;
+        suma_dalijimas += t_dalijimas;
         suma_isvedimas += t_isvedimas;
-        suma_bendras += (t_skaitymas + t_rusiavimas + t_isvedimas);
+        suma_bendras += (t_skaitymas + t_rusiavimas + t_dalijimas + t_isvedimas);
     }
 
     std::cout << "1. Duomenu nuskaitymas (vidurkis): " << suma_skaitymas / testu_kiekis << " s\n";
     std::cout << "2. Studentu rusiavimas ir dalijimas (vidurkis): " << suma_rusiavimas / testu_kiekis << " s\n";
+    std::cout << "3. Studentu dalijimas (vidurkis): "<< suma_dalijimas / testu_kiekis << " s\n";
     std::cout << "3. Isvedimas i du failus (vidurkis): " << suma_isvedimas / testu_kiekis << " s\n";
     std::cout << "-> Bendras laikas (vidurkis): " << suma_bendras / testu_kiekis << " s\n\n";
 }
