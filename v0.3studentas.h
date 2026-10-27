@@ -198,7 +198,18 @@ void dalinti2Strategija(Container &grupe, Container &vargsiukai, Container &kiet
     kietiakiai = std::move(grupe);
 }
 
+template <typename Container>
+void dalinti3Strategija(Container &grupe, Container &vargsiukai, Container &kietiakiai) {
+    vargsiukai.clear();
+    kietiakiai.clear();
 
+    auto it = std::partition(grupe.begin(), grupe.end(), [](const studentas &s) {
+        return s.galutinis_vid < 5.0;
+    });
+
+    vargsiukai.assign(grupe.begin(), it);
+    kietiakiai.assign(it, grupe.end());
+}
 #endif
 
 

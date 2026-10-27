@@ -66,6 +66,10 @@ void atliktiAnalize(int strategijos_nr, const string &failo_pavadinimas, int kie
         auto t5 = Clock::now();
         if (strategijos_nr == 1) {
             dalinti1Strategija(grupe, vargsiukai, kietiakiai);
+        } else if (strategijos_nr == 2) {
+            dalinti2Strategija(grupe, vargsiukai, kietiakiai);
+        } else if (strategijos_nr == 3) {
+            dalinti3Strategija(grupe, vargsiukai, kietiakiai);
         }
         auto t6 = Clock::now();
         double t_dalijimas = Duration(t6 - t5).count();
@@ -198,7 +202,7 @@ int main()
             {"studentai_1000.txt", 1000},
             {"studentai_10000.txt", 10000},
             {"studentai_100000.txt", 100000},
-            {"studentai_1000000.txt", 1000000},
+            //{"studentai_1000000.txt", 1000000},
            // {"studentai_10000000.txt", 10000000}
         };
 
@@ -211,6 +215,10 @@ int main()
         for (const auto &t : testai) {
             atliktiAnalize<std::vector<studentas>>(2, t.failas, t.kiekis, rusiavimo_kriterijus, "std::vector");
         }
+        std::cout << "\n--- 3 STRATEGIJA (Vector) ---\n";
+        for (const auto &t : testai) {
+            atliktiAnalize<std::vector<studentas>>(3, t.failas, t.kiekis, rusiavimo_kriterijus, "std::vector");
+        }
 
         std::cout << "\n=================== VYKDOMI TESTAI SU std::list ===================\n\n";
         std::cout << "\n--- 1 STRATEGIJA (List) ---\n";
@@ -221,6 +229,10 @@ int main()
         std::cout << "\n--- 2 STRATEGIJA (List) ---\n";
         for (const auto &t : testai) {
             atliktiAnalize<std::list<studentas>>(2, t.failas, t.kiekis, rusiavimo_kriterijus, "std::list");
+        }
+        std::cout << "\n--- 3 STRATEGIJA (List) ---\n";
+        for (const auto &t : testai) {
+            atliktiAnalize<std::list<studentas>>(3, t.failas, t.kiekis, rusiavimo_kriterijus, "std::list");
         }
     }
     else
