@@ -181,6 +181,24 @@ void dalinti1Strategija(const Container &grupe, Container &vargsiukai, Container
         }
     }
 }
+
+template <typename Container>
+void dalinti2Strategija(Container &grupe, Container &vargsiukai, Container &kietiakiai) {
+    vargsiukai.clear();
+    kietiakiai.clear();
+
+    for (auto it = grupe.begin(); it != grupe.end(); ) {
+        if (it->galutinis_vid < 5.0) {
+            vargsiukai.push_back(*it);
+            it = grupe.erase(it);
+        } else {
+            ++it;
+        }
+    }
+    kietiakiai = std::move(grupe);
+}
+
+
 #endif
 
 
