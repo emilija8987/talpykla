@@ -1,17 +1,17 @@
-# Studentų rūšiavimo programa (v1.0)
+# Studentų rūšiavimo programa (V1.0)
 
 ## Versijų aprašymai
 
-* **v0.1**
+* **V0.1**
   Pradinė programos versija. Duomenys įvedami rankiniu būdu per konsolę, skaičiuojamas tik galutinis vidurkis ir namų darbų rezultatai. Rezultatai išvedami į ekraną.
 
 * **v0.2**
   Pridėtas duomenų nuskaitymas iš failų ir atsitiktinių studentų bei jų pažymių failų generavimas (`std::vector` konteineryje). Įdiegtas galutinės medianos skaičiavimas, studentų rūšiavimas pagal pavardes bei surūšiuotų duomenų išvedimas į atskirus failus (`vargsiukai.txt` ir `kietiakiai.txt`).
 
-* **v0.3**
+* **V0.3**
   Projektas išskaidytas į atskirus modulių failus (`main.cpp`, `studentas.cpp`, `pagalbine.cpp` ir antraštinius failus). Realizuotas kelių konteinerių tipų (`std::vector` ir `std::list`) palaikymas bei trys skirtingos studentų dalijimo į dvi kategorijas strategijos. Taip pat pridėtas spartos matavimas laiko matavimo funkcijomis (`std::chrono`).
 
-* **v1.0**
+* **V1.0**
   Galutinė optimizuota programos versija. Atliktas spartos tyrimas su įvairaus dydžio failais (nuo 1 000 iki 1 000 000 įrašų), panaudoti efektyvūs STL algoritmai bei konteinerių manipuliavimo metodai. Projektas pilnai paruoštas naudojimui su įdiegimo instrukcijomis.
 
 ---
