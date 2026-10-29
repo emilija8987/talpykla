@@ -15,6 +15,62 @@
   Galutinė optimizuota programos versija. Atliktas spartos tyrimas su įvairaus dydžio failais (nuo 1 000 iki 1 000 000 įrašų), panaudoti efektyvūs STL algoritmai bei konteinerių manipuliavimo metodai. Projektas pilnai paruoštas naudojimui su įdiegimo instrukcijomis.
 
 ---
+## Strategijų tyrimas ir spartos analizė
+
+Strategijų tyrimo metu buvo ištirtos 3 skirtingos studentų skirstymo į dvi kategorijas (vargšiukai ir kietiakiai) strategijos naudojant `std::vector` ir `std::list` konteinerius.
+
+### Dalijimo strategijų aprašymas:
+* **1 strategija:** Bendro konteinerio (`studentai`) įrašai nuskaitomi ir pagal galutinį įvertinimą padalijami į du visiškai naujus konteinerius (`vargsiukai` ir `kietiakiai`). Originalus konteineris paliekamas nepakitęs, todėl reikalaujama dvigubai daugiau atminties.
+* **2 strategija:** Naudojamas tik vienas naujas konteineris (`vargsiukai`). Studentai, kurių įvertinimas < 5.0, perkeliami/įrašomi į `vargsiukai` konteinerį ir ištrinami iš pagrindinio konteinerio (`studentai`), kuriame lieka tik `kietiakiai`.
+* **3 strategija (optimizuota):** Panaudojami efektyvūs STL algoritmai (pvz., `std::stable_partition` arba `std::remove_copy_if`) ir efektyvus trynimas, minimizuojant elementų kopijavimą bei atminties perstumdymus.
+
+---
+
+### Spartos analizės rezultatai (Nuotrauka)
+
+![Spartos analizės rezultatai](V1.0.png)
+
+---
+
+### Spartos analizės lentelės
+
+#### 1. `std::vector` konteineris
+
+| Strategija | Failas | Kiekis | Nuskaitymas (s) | Rūšiavimas (s) | Dalijimas (s) | Išvedimas (s) | BENDRAS (s) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **1 STRATEGIJA** | studentai_1000.txt | 1 000 | 0.0072 | 0.0017 | 0.0006 | 0.0376 | 0.0471 |
+| | studentai_10000.txt | 10 000 | 0.0502 | 0.0188 | 0.0054 | 0.0410 | 0.1154 |
+| | studentai_100000.txt | 100 000 | 0.4645 | 0.2589 | 0.0598 | 0.3717 | 1.1550 |
+| | studentai_1000000.txt | 1 000 000 | 5.0613 | 3.9336 | 0.6903 | 4.1650 | 13.8502 |
+| **2 STRATEGIJA** | studentai_1000.txt | 1 000 | 0.0434 | 0.0025 | 0.0005 | 0.0154 | 0.0618 |
+| | studentai_10000.txt | 10 000 | 0.0473 | 0.0192 | 0.0032 | 0.0390 | 0.1087 |
+| | studentai_100000.txt | 100 000 | 0.4717 | 0.2331 | 0.0326 | 0.3729 | 1.1103 |
+| | studentai_1000000.txt | 1 000 000 | 5.3899 | 2.9976 | 0.3632 | 4.4140 | 13.1648 |
+| **3 STRATEGIJA** | studentai_1000.txt | 1 000 | 0.0068 | 0.0022 | 0.0007 | 0.0133 | 0.0230 |
+| | studentai_10000.txt | 10 000 | 0.0507 | 0.0209 | 0.0049 | 0.0417 | 0.1183 |
+| | studentai_100000.txt | 100 000 | 0.5053 | 0.2630 | 0.0547 | 0.4036 | 1.2267 |
+| | studentai_1000000.txt | 1 000 000 | 5.4007 | 3.5816 | 0.6804 | 4.2206 | 13.8833 |
+
+---
+
+#### 2. `std::list` konteineris
+
+| Strategija | Failas | Kiekis | Nuskaitymas (s) | Rūšiavimas (s) | Dalijimas (s) | Išvedimas (s) | BENDRAS (s) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **1 STRATEGIJA** | studentai_1000.txt | 1 000 | 0.0082 | 0.0006 | 0.0006 | 0.0535 | 0.0630 |
+| | studentai_10000.txt | 10 000 | 0.0664 | 0.0075 | 0.0083 | 0.0446 | 0.1267 |
+| | studentai_100000.txt | 100 000 | 0.5790 | 0.1476 | 0.0887 | 0.4263 | 1.2416 |
+| | studentai_1000000.txt | 1 000 000 | 5.6558 | 2.1805 | 0.9284 | 4.4672 | 13.2319 |
+| **2 STRATEGIJA** | studentai_1000.txt | 1 000 | 0.0069 | 0.0005 | 0.0003 | 0.0160 | 0.0237 |
+| | studentai_10000.txt | 10 000 | 0.0621 | 0.0106 | 0.0007 | 0.0584 | 0.1358 |
+| | studentai_100000.txt | 100 000 | 0.6737 | 0.1629 | 0.0564 | 0.5367 | 1.4297 |
+| | studentai_1000000.txt | 1 000 000 | 6.2470 | 2.0177 | 0.5746 | 4.8353 | 13.6746 |
+| **3 STRATEGIJA** | studentai_1000.txt | 1 000 | 0.0164 | 0.0008 | 0.0020 | 0.0291 | 0.0483 |
+| | studentai_10000.txt | 10 000 | 0.0552 | 0.0080 | 0.0177 | 0.0428 | 0.1237 |
+| | studentai_100000.txt | 100 000 | 0.5427 | 0.1666 | 0.2344 | 0.3818 | 1.3255 |
+| | studentai_1000000.txt | 1 000 000 | 5.4693 | 1.8415 | 2.4515 | 3.8997 | 13.6620 |
+
+---
 
 ## Gautų rezultatų komentaras
 
