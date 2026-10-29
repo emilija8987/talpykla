@@ -202,7 +202,7 @@ int main()
             {"studentai_1000.txt", 1000},
             {"studentai_10000.txt", 10000},
             {"studentai_100000.txt", 100000},
-            //{"studentai_1000000.txt", 1000000},
+            {"studentai_1000000.txt", 1000000},
            // {"studentai_10000000.txt", 10000000}
         };
 

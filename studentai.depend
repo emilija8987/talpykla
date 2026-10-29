@@ -83,3 +83,45 @@
 	"v0.3studentas.h"
 	"v0.3pagalbine.h"
 
+1793274638 source:c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\v1.o\pagalbine.cpp
+	"pagalbine.h"
+	<iostream>
+	<algorithm>
+	<random>
+	<fstream>
+
+1793274655 c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\v1.o\pagalbine.h
+	<string>
+	<vector>
+
+1793274646 source:c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\v1.o\studentas.cpp
+	<iostream>
+	<iomanip>
+	<sstream>
+	<random>
+	<algorithm>
+	"studentas.h"
+	"pagalbine.h"
+
+1793294511 c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\v1.o\studentas.h
+	<string>
+	<vector>
+	<fstream>
+	<list>
+	<iostream>
+	<sstream>
+	<iomanip>
+	<type_traits>
+	<algorithm>
+	"pagalbine.h"
+
+1793277575 source:c:\users\vartotojas\desktop\vu\ii kursas ( i semestras )\objektinis programavimas\v1.o\main.cpp
+	<iostream>
+	<vector>
+	<string>
+	<chrono>
+	<algorithm>
+	<list>
+	"studentas.h"
+	"pagalbine.h"
+

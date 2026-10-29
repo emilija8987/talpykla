@@ -187,15 +187,31 @@ void dalinti2Strategija(Container &grupe, Container &vargsiukai, Container &kiet
     vargsiukai.clear();
     kietiakiai.clear();
 
-    for (auto it = grupe.begin(); it != grupe.end(); ) {
-        if (it->galutinis_vid < 5.0) {
-            vargsiukai.push_back(*it);
-            it = grupe.erase(it);
-        } else {
-            ++it;
+    if constexpr (std::is_same<Container, std::vector<studentas>>::value) {
+        for (const auto &s : grupe) {
+            if (s.galutinis_vid < 5.0) {
+                vargsiukai.push_back(s);
+            }
         }
+        grupe.erase(
+            std::remove_if(grupe.begin(), grupe.end(), [](const studentas &s) {
+                return s.galutinis_vid < 5.0;
+            }),
+            grupe.end()
+        );
+        kietiakiai = std::move(grupe);
     }
-    kietiakiai = std::move(grupe);
+    else {
+        for (auto it = grupe.begin(); it != grupe.end(); ) {
+            if (it->galutinis_vid < 5.0) {
+                vargsiukai.push_back(*it);
+                it = grupe.erase(it);
+            } else {
+                ++it;
+            }
+        }
+        kietiakiai = std::move(grupe);
+    }
 }
 
 template <typename Container>
@@ -203,12 +219,25 @@ void dalinti3Strategija(Container &grupe, Container &vargsiukai, Container &kiet
     vargsiukai.clear();
     kietiakiai.clear();
 
-    auto it = std::partition(grupe.begin(), grupe.end(), [](const studentas &s) {
-        return s.galutinis_vid < 5.0;
-    });
+    if constexpr (std::is_same<Container, std::vector<studentas>>::value) {
+        auto it = std::stable_partition(grupe.begin(), grupe.end(), [](const studentas &s) {
+            return s.galutinis_vid < 5.0;
+        });
 
-    vargsiukai.assign(grupe.begin(), it);
-    kietiakiai.assign(it, grupe.end());
+        vargsiukai.assign(std::make_move_iterator(grupe.begin()), std::make_move_iterator(it));
+        kietiakiai.assign(std::make_move_iterator(it), std::make_move_iterator(grupe.end()));
+
+        grupe.clear();
+    }
+    else {
+        kietiakiai = grupe;
+        kietiakiai.remove_if([](const studentas &s) { return s.galutinis_vid < 5.0; });
+
+        vargsiukai = grupe;
+        vargsiukai.remove_if([](const studentas &s) { return s.galutinis_vid >= 5.0; });
+
+        grupe.clear();
+    }
 }
 #endif
 
