@@ -26,3 +26,14 @@ Remiantis atliktais spartos analizės matavimais (testuojant su 1 000, 10 000, 1
 
 * **Rūšiavimas ir dalijimas:** Žvelgiant į rezultatus pastebima, kad `std::list` konteineris rūšiavimo ir dalijimo etape su didesniais kiekiais (100k ir 1M įrašų) veikia ženkliai greičiau nei `std::vector` (pvz., prie 1 000 000 įrašų `std::list` užtruko ~3.44 s, o `std::vector` – ~13.52 s). Taip yra todėl, kad sąrašas naudoja savo vidinį `sort()` metodą, kuris keičia tik elementų rodykles (mazgus), o vektoriui tenka perstumti didelius atminties blokus.
 * **Nuskaitymas ir įrašymas:** Duomenų nuskaitymo ir įrašymo į failus etapuose abiejų konteinerių laikai yra gana panašūs, nes pagrindinis laikas čia priklauso nuo disko (SSD) spartos ir srautų (`std::fstream`), o ne nuo pačio konteinerio vidinės struktūros.
+
+## Naudojimosi instrukcija
+
+Paleidę programą, terminale galite pasirinkti vieną iš dviejų režimų:
+
+1. **Automatinė spartos analizė** – atlieka spartos matavimus visiems testiniams failams, išbandydama abu konteinerių tipus (`std::vector` ir `std::list`) bei visas tris dalijimo strategijas.
+2. **Įprastas programos režimas** – leidžia pasirinkti konkretų duomenų failą arba įvesti duomenis ranka, nurodyti rūšiavimo kriterijų ir įrašyti rezultatus.
+
+Programos darbo metu sukurtstomi šie rezultatų failai:
+* `vargsiukai.txt` – studentai, kurių galutinis vidurkis mažesnis nei 5.0.
+* `kietiakiai.txt` – studentai, kurių galutinis vidurkis yra 5.0 arba didesnis.
