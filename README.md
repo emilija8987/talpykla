@@ -50,16 +50,11 @@ mkdir build
 cd build
 cmake ..
 cmake --build .
-
-- Programos paleidimas:
-  - Linux / macOS / Git Bash: `./programa`
-  - Windows: `.\Debug\programa.exe`
-
-2. Naudojant `Makefile` (Unix OS atveju)  
-Jei naudojate Unix / Linux / macOS aplinką ir turite `make` įrankį bei `g++` kompiliatorių, projekto šakniniame aplanke įvykdykite:
+```
+2. Naudojant Makefile (Unix / Linux / macOS aplinkai)
+Jei naudojate Unix tipo aplinką ir turite make įrankį bei g++ kompiliatorių, projekto šakniniame aplanke įvykdykite:
 
 ```bash
 make
-
 
 
