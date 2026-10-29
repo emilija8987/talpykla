@@ -4,8 +4,8 @@
 #include <chrono>
 #include <algorithm>
 #include <list>
-#include "v0.3studentas.h"
-#include "v0.3pagalbine.h"
+#include "studentas.h"
+#include "pagalbine.h"
 
 using std::string;
 using std::vector;

@@ -1,5 +1,5 @@
-#ifndef V03_STUDENTAS_H
-#define V03_STUDENTAS_H
+#ifndef STUDENTAS_H
+#define STUDENTAS_H
 
 #include <string>
 #include <vector>
@@ -10,7 +10,7 @@
 #include <iomanip>
 #include <type_traits>
 #include <algorithm>
-#include "v0.3pagalbine.h"
+#include "pagalbine.h"
 
 struct studentas {
     std::string vardas, pavarde;

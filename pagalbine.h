@@ -1,5 +1,5 @@
-#ifndef V03_PAGALBINE_H
-#define V03_PAGALBINE_H
+#ifndef PAGALBINE_H
+#define PAGALBINE_H
 
 #include <string>
 #include <vector>

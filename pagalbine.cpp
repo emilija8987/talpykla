@@ -1,4 +1,4 @@
-#include "v0.3pagalbine.h"
+#include "pagalbine.h"
 #include <iostream>
 #include <algorithm>
 #include <random>
