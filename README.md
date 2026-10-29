@@ -37,3 +37,29 @@ Paleidę programą, terminale galite pasirinkti vieną iš dviejų režimų:
 Programos darbo metu sukurtstomi šie rezultatų failai:
 * `vargsiukai.txt` – studentai, kurių galutinis vidurkis mažesnis nei 5.0.
 * `kietiakiai.txt` – studentai, kurių galutinis vidurkis yra 5.0 arba didesnis.
+
+## Įdiegimo ir paleidimo instrukcija
+
+Projektą galima sukompiliuoti ir paleisti naudojant du paruoštus konfigūracijos failus:
+
+1. Naudojant `CMakeLists.txt` (bet kokios OS atveju)
+Jei sistemoje įdiegtas CMake ir C++ kompiliatorius, projekto šakniniame aplanke terminale įvykdykite šias komandas:
+
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build .
+
+- Programos paleidimas:
+  - Linux / macOS / Git Bash: `./programa`
+  - Windows: `.\Debug\programa.exe`
+
+2. Naudojant `Makefile` (Unix OS atveju)  
+Jei naudojate Unix / Linux / macOS aplinką ir turite `make` įrankį bei `g++` kompiliatorių, projekto šakniniame aplanke įvykdykite:
+
+```bash
+make
+
+
+

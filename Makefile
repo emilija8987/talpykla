@@ -10,10 +10,5 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
 clean:
-	rm -f $(OBJS) $(TARGET) vargsiukai.txt kietiakiai.txt
-
-.PHONY: all clean
+	rm -f $(OBJS) $(TARGET)
