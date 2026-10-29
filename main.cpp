@@ -26,17 +26,9 @@ int gautiRusiavimoKriteriju()
 template <typename Container>
 void atliktiAnalize(int strategijos_nr, const string &failo_pavadinimas, int kiekis, int rusiavimo_kriterijus, string konteinerio_pavadinimas)
 {
-    std::cout << "------------------------------------------------------------------------\n";
-    std::cout << strategijos_nr << " STRATEGIJA | Konteineris: " << konteinerio_pavadinimas << " | Failas: " << failo_pavadinimas << " (" << kiekis << " irasu)\n";
-    std::cout << "------------------------------------------------------------------------\n";
-
     if (!failasEgzistuoja(failo_pavadinimas))
     {
         generuotiStudentuFaila(failo_pavadinimas, kiekis);
-    }
-    else
-    {
-        std::cout << "Failas '" << failo_pavadinimas << "' jau egzistuoja. Generavimas praleidziamas.\n";
     }
 
     int testu_kiekis = 3;
@@ -87,11 +79,16 @@ void atliktiAnalize(int strategijos_nr, const string &failo_pavadinimas, int kie
         suma_bendras += (t_skaitymas + t_rusiavimas + t_dalijimas + t_isvedimas);
     }
 
-    std::cout << "1. Duomenu nuskaitymas (vidurkis): " << suma_skaitymas / testu_kiekis << " s\n";
-    std::cout << "2. Studentu rusiavimas ir dalijimas (vidurkis): " << suma_rusiavimas / testu_kiekis << " s\n";
-    std::cout << "3. Studentu dalijimas (vidurkis): "<< suma_dalijimas / testu_kiekis << " s\n";
-    std::cout << "4. Isvedimas i du failus (vidurkis): " << suma_isvedimas / testu_kiekis << " s\n";
-    std::cout << "-> Bendras laikas (vidurkis): " << suma_bendras / testu_kiekis << " s\n\n";
+    std::cout << std::left
+              << std::setw(13) << konteinerio_pavadinimas << " | "
+              << std::setw(23) << failo_pavadinimas << " | "
+              << std::setw(10)  << kiekis << " | "
+              << std::fixed << std::setprecision(4)
+              << std::setw(11) << suma_skaitymas / testu_kiekis << "s | "
+              << std::setw(11) << suma_rusiavimas / testu_kiekis << "s | "
+              << std::setw(11) << suma_dalijimas / testu_kiekis << "s | "
+              << std::setw(11) << suma_isvedimas / testu_kiekis << "s | "
+              << std::setw(11) << suma_bendras / testu_kiekis << "s\n";
 }
 
 template <typename Container>
@@ -206,34 +203,39 @@ int main()
            // {"studentai_10000000.txt", 10000000}
         };
 
-        std::cout << "\n=================== VYKDOMI TESTAI SU std::vector ===================\n\n";
-        for (const auto &t : testai)
-        {
-            atliktiAnalize<std::vector<studentas>>(1, t.failas, t.kiekis, rusiavimo_kriterijus, "std::vector");
-        }
-        std::cout << "\n--- 2 STRATEGIJA (Vector) ---\n";
-        for (const auto &t : testai) {
-            atliktiAnalize<std::vector<studentas>>(2, t.failas, t.kiekis, rusiavimo_kriterijus, "std::vector");
-        }
-        std::cout << "\n--- 3 STRATEGIJA (Vector) ---\n";
-        for (const auto &t : testai) {
-            atliktiAnalize<std::vector<studentas>>(3, t.failas, t.kiekis, rusiavimo_kriterijus, "std::vector");
-        }
+        std::cout << "\n========================================= SPARTOS ANALIZE (VIDURKIAI) =======================================================\n";
+        std::cout << std::left
+                  << std::setw(13) << "Konteineris" << " | "
+                  << std::setw(23) << "Failas" << " | "
+                  << std::setw(10) << "Kiekis" << " | "
+                  << std::setw(12) << "Nuskaitymas" << " | "
+                  << std::setw(12) << "Rusiavimas" << " | "
+                  << std::setw(12) << "Dalijimas" << " | "
+                  << std::setw(12) << "Isvedimas" << " | "
+                  << std::setw(12) << "BENDRAS" << "\n";
+        std::cout << "=============================================================================================================================\n";
 
-        std::cout << "\n=================== VYKDOMI TESTAI SU std::list ===================\n\n";
-        std::cout << "\n--- 1 STRATEGIJA (List) ---\n";
-        for (const auto &t : testai)
-        {
-            atliktiAnalize<std::list<studentas>>(1, t.failas, t.kiekis, rusiavimo_kriterijus, "std::list");
-        }
-        std::cout << "\n--- 2 STRATEGIJA (List) ---\n";
-        for (const auto &t : testai) {
-            atliktiAnalize<std::list<studentas>>(2, t.failas, t.kiekis, rusiavimo_kriterijus, "std::list");
-        }
-        std::cout << "\n--- 3 STRATEGIJA (List) ---\n";
-        for (const auto &t : testai) {
-            atliktiAnalize<std::list<studentas>>(3, t.failas, t.kiekis, rusiavimo_kriterijus, "std::list");
-        }
+        std::cout << "\n--- 1 STRATEGIJA (std::vector) ---\n";
+        for (const auto &t : testai) atliktiAnalize<std::vector<studentas>>(1, t.failas, t.kiekis, rusiavimo_kriterijus, "std::vector");
+
+        std::cout << "\n--- 2 STRATEGIJA (std::vector) ---\n";
+        for (const auto &t : testai) atliktiAnalize<std::vector<studentas>>(2, t.failas, t.kiekis, rusiavimo_kriterijus, "std::vector");
+
+        std::cout << "\n--- 3 STRATEGIJA (std::vector) ---\n";
+        for (const auto &t : testai) atliktiAnalize<std::vector<studentas>>(3, t.failas, t.kiekis, rusiavimo_kriterijus, "std::vector");
+
+        std::cout << "\n-----------------------------------------------------------------------------------------------------------------------\n";
+
+        std::cout << "\n--- 1 STRATEGIJA (std::list) ---\n";
+        for (const auto &t : testai) atliktiAnalize<std::list<studentas>>(1, t.failas, t.kiekis, rusiavimo_kriterijus, "std::list");
+
+        std::cout << "\n--- 2 STRATEGIJA (std::list) ---\n";
+        for (const auto &t : testai) atliktiAnalize<std::list<studentas>>(2, t.failas, t.kiekis, rusiavimo_kriterijus, "std::list");
+
+        std::cout << "\n--- 3 STRATEGIJA (std::list) ---\n";
+        for (const auto &t : testai) atliktiAnalize<std::list<studentas>>(3, t.failas, t.kiekis, rusiavimo_kriterijus, "std::list");
+
+        std::cout << "========================================================================================================================\n\n";
     }
     else
     {
