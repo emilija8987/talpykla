@@ -72,16 +72,45 @@ Strategijų tyrimo metu buvo ištirtos 3 skirtingos studentų skirstymo į dvi k
 
 ---
 
-## Gautų rezultatų komentaras
+## Spartos analizės išvados
 
-Remiantis atliktais spartos analizės matavimais (testuojant su 1 000, 10 000, 100 000 ir 1 000 000 įrašų failais):
+### 1. Bendras programos vykdymo laikas
 
-1. **Duomenų nuskaitymas ir išvedimas:** Nuskaitymas iš failo ir galutinis įrašymas į tekstinius failus užima didžiąją dalį bendro programos laiko (pavyzdžiui, 1 000 000 įrašų atveju nuskaitymas trunka apie 5 sekundes, o išvedimas – apie 4.1-4.4 sekundės). Tai rodo, kad operacijos su disku (I/O) yra pagrindinis spartos ribojantis veiksnis.
-2. **Rūšiavimo trukmė (`std::vector` vs `std::list`):** Milijono elementų atveju `std::list` elementų rūšiavimas (`grupe.sort()`) užtrunka apie 1.8–2.1 sekundės, tuo tarpu `std::vector` rūšiavimas per `std::sort()` užtrunka ilgiau – apie 3.0–3.9 sekundės. Tai nutinka todėl, kad sąrašas keičia tik elementų rodykles (mazgus), o vektorius perkelia pačius objektus atmintyje.
-3. **Strategijų įtaka dalijimui:** 1, 2 ir 3 strategijos parodo, kaip konteinerių pildymo ir trynimo metodika veikia veikimo spartą. Pavyzdžiui, antrojoje ir trečiojoje strategijoje vektoriui pritaikyti efektyvūs filtravimo metodai padeda sumažinti dalijimo trukmę išvengiant elementų perteklinio kopijavimo.
+Bendras laikas apima duomenų nuskaitymą, rūšiavimą, studentų dalijimą ir rezultatų išvedimą.
 
-* **Rūšiavimas ir dalijimas:** Žvelgiant į rezultatus pastebima, kad `std::list` konteineris rūšiavimo ir dalijimo etape su didesniais kiekiais (100k ir 1M įrašų) veikia ženkliai greičiau nei `std::vector` (pvz., prie 1 000 000 įrašų `std::list` užtruko ~3.44 s, o `std::vector` – ~13.52 s). Taip yra todėl, kad sąrašas naudoja savo vidinį `sort()` metodą, kuris keičia tik elementų rodykles (mazgus), o vektoriui tenka perstumti didelius atminties blokus.
-* **Nuskaitymas ir įrašymas:** Duomenų nuskaitymo ir įrašymo į failus etapuose abiejų konteinerių laikai yra gana panašūs, nes pagrindinis laikas čia priklauso nuo disko (SSD) spartos ir srautų (`std::fstream`), o ne nuo pačio konteinerio vidinės struktūros.
+Apdorojant 1 000 000 studentų su `std::vector`, gauti tokie rezultatai:
+
+- 1 strategija – **13,8502 s**.
+- 2 strategija – **13,1648 s**.
+- 3 strategija – **13,8833 s**.
+
+Visų strategijų bendras vykdymo laikas yra panašus, nes didžiąją jo dalį sudaro duomenų nuskaitymas, rūšiavimas ir rezultatų įrašymas. Todėl net ir greitesnis studentų dalijimas ne visada labai sumažina bendrą programos vykdymo laiką.
+
+Pavyzdžiui, 2 strategijos bendras vykdymo laikas buvo maždaug 0,7 s trumpesnis nei kitų dviejų strategijų.
+
+### 2. Studentų dalijimo laikas
+
+Dalijimo laikas parodo, kiek trunka tik pasirinktos strategijos vykdymas, neįskaičiuojant duomenų nuskaitymo, rūšiavimo ir rezultatų išvedimo.
+
+Apdorojant 1 000 000 studentų, gauti tokie rezultatai:
+
+| Strategija | `std::vector` | `std::list` |
+|---|---:|---:|
+| 1 strategija | 0,6903 s | 0,9284 s |
+| 2 strategija | 0,3632 s | 0,5746 s |
+| 3 strategija | 0,6804 s | 2,4515 s |
+
+**Greičiausia buvo 2 strategija** tiek naudojant `std::vector`, tiek `std::list`.
+
+Pavyzdžiui, su `std::vector` 2 strategija studentus suskirstė per 0,3632 s, o 1 ir 3 strategijoms prireikė atitinkamai 0,6903 s ir 0,6804 s.
+
+Didžiausias skirtumas pastebėtas naudojant 3 strategiją: su `std::vector` dalijimas užtruko 0,6804 s, o su `std::list` – 2,4515 s. Taigi šiuo atveju `std::vector` dalijimą atliko maždaug 3,6 karto greičiau.
+
+### 3. Apibendrinimas
+
+Bendras programos vykdymo laikas visų strategijų atveju yra panašus, nes jam didelę įtaką daro duomenų nuskaitymas, rūšiavimas ir rezultatų išvedimas.
+
+Tačiau lyginant tik dalijimo laiką, aiškiai matomi strategijų skirtumai. **2 strategija buvo greičiausia, o `std::vector` dalijimo operacijas atliko greičiau nei `std::list` visose trijose strategijose, apdorojant 1 000 000 studentų.**
 
 ## Naudojimosi instrukcija
 
