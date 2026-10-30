@@ -4,6 +4,7 @@
 *.out
 *.o
 *.obj
+*.png
 build/
 cmake-build-*/
 vargsiukai.txt
